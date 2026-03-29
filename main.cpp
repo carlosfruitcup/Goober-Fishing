@@ -4,6 +4,7 @@
 #include "AudioHandler.hpp"
 
 
+AudioHandler audio = AudioHandler::AudioHandler();
 SDL_Texture* bgtex;
 int timeoutTime = 0;
 std::set<int> jackpot = { 0, 2, 4 };
@@ -221,6 +222,10 @@ static void kbUpInput(SDL_Event* key) {
 		sellFish();
 	}
 
+	if (key->key.scancode == SDL_SCANCODE_M) {
+		audio.muteAudio();
+	}
+
 }
 
 static void mouseInput(SDL_Event* mouse) {
@@ -261,7 +266,6 @@ int main() {
 
 	loadFishList();
 	loadTextures();
-	AudioHandler audio = AudioHandler::AudioHandler();
 	
 	bool is_running = true;
 	while (is_running) {

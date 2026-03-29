@@ -23,6 +23,7 @@ public:
 	AudioHandler();
 	static ma_result playSound(ma_sound* sound, string path, int loop, float vol);
 	static ma_result stopSound(ma_sound* sound);
+	void muteAudio();
 	static void freeAudio();
 };
 
@@ -52,6 +53,16 @@ AudioHandler::AudioHandler() {
 
 		
 	}
+}
+
+void AudioHandler::muteAudio() {
+	if (!isSoundEngine_init) { return; }
+
+	//i have no idea its 2, i thought this was db?
+	//also also, inline if statements are very confusing as i havent touched c++ in a while (and yes, i forgot about utils class)
+	//condition ? true : false
+	ma_engine_set_volume(&engine, (ma_engine_get_volume(&engine) == 2 ? -80 : 2));
+
 }
 
 ma_result AudioHandler::playSound(ma_sound* sound, string path, int loop, float vol) {
